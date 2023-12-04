@@ -1,5 +1,6 @@
 import React from 'react'
 import questions from '../assets/questions.js'
+import Question from './Question.jsx'
 
 
 //js file that has an array of questions
@@ -11,9 +12,9 @@ import questions from '../assets/questions.js'
 
 export default function Questionnaire(){
 
-    
-    const initialState = questions.reduce((acc, question) => {
-        acc[question.id] = false
+    //should i add a subscale property here to help with calculating subscores later?
+    const initialState = questions.reduce((acc, question, index) => {
+        acc[index] = false
         return acc
     }, {})
     
@@ -28,65 +29,29 @@ export default function Questionnaire(){
                 [name]: numericValue
             }
         })
-
     }
+
 
     function handleSubmit(event){
         event.preventDefault()
         console.log(formData)
     }
 
+    const questionElements = questions.map((q, qIndex) => (
+        <Question 
+            key={`q${qIndex}`}
+            question={q.question}
+            name={qIndex}
+            formData={formData}
+            handleChange={handleChange}
+        />
+    ))
+
     return (
         <>
             <h2>Over the past two weeks how often did your loved one have problems with:</h2>
             <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <legend>{questions[0].question}</legend>
-                    <label htmlFor={`${questions[0].id}_notAtAll`}>
-                        <input 
-                            type="radio"
-                            id={`${questions[0].id}_notAtAll`}
-                            name={`${questions[0].id}`}
-                            value={0}
-                            checked={formData[questions[0].id === 0]}
-                            onChange={handleChange}
-                            />
-                    Not At All (0-1 days)
-                    </label>
-                    <label htmlFor={`${questions[0].id}_severalDays`}>
-                        <input 
-                            type="radio"
-                            id={`${questions[0].id}_severalDays`}
-                            name={`${questions[0].id}`}
-                            value={1}
-                            checked={formData[questions[0].id === 1]}
-                            onChange={handleChange}
-                            />
-                    Serveral Days (2-6 days)
-                    </label>
-                    <label htmlFor={`${questions[0].id}_moreThanHalf`}>
-                        <input 
-                            type="radio"
-                            id={`${questions[0].id}_moreThanHalf`}
-                            name={`${questions[0].id}`}
-                            value={2}
-                            checked={formData[questions[0].id === 2]}
-                            onChange={handleChange}
-                            />
-                    More than half the days (7-11 days)
-                    </label>
-                    <label htmlFor={`${questions[0].id}_almostDaily`}>
-                        <input 
-                            type="radio"
-                            id={`${questions[0].id}_almostDaily`}
-                            name={`${questions[0].id}`}
-                            value={3}
-                            checked={formData[questions[0].id === 3]}
-                            onChange={handleChange}
-                            />
-                    Almost Daily (12-14 days)
-                    </label>
-                </fieldset>
+                {questionElements}
                 <button>Submit!</button>
             </form>
         </>
