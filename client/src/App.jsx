@@ -1,14 +1,20 @@
-import './App.css'
-import Title from './components/Title.jsx'
-import Instructions from './components/Instructions.jsx'
-import Form from './components/Form.jsx'
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom'
+import QuestionnairePage from './pages/QuestionnairePage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import DashboardPage from './pages/DashboardPage.jsx'
+import NavBar from './components/Navbar.jsx'
 
 export default function App() {
-  return (
-    <>
-      <Title />
-      <Instructions /> 
-      <Form />
-    </>
+  return(
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path='/' element={<DashboardPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/questionnaire' element={<QuestionnairePage />} />
+      </Routes>
+    </Router>
   )
 }
