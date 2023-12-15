@@ -10,7 +10,7 @@ export default function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path='/' element={<DashboardPage />} />
+        <Route path='/dashboard' element={<DashboardPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/questionnaire' element={<QuestionnairePage />} />
