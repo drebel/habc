@@ -2,6 +2,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavbarBrand from 'react-bootstrap/NavbarBrand'
 import {LinkContainer} from 'react-router-bootstrap'
+import Logout from './Logout.jsx'
 
 export default function NavBar(){
     
@@ -25,6 +26,7 @@ export default function NavBar(){
                     <LinkContainer to='/signup'>
                         <Nav.Link>Signup</Nav.Link>
                     </LinkContainer>
+                    <Logout />
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
