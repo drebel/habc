@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 export default function LoginPage(){
 
@@ -17,9 +19,19 @@ export default function LoginPage(){
         })
     }
 
-    function handleSubmit(event){
+    // const navigate = useNavigate()
+
+    async function handleSubmit(event){
         event.preventDefault()
-        console.log(loginData)
+        console.log('submit signup')
+        const response = await axios.post('http://localhost:5000/login', loginData, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true,
+        })
+        console.log(response)
+        // navigate('/dashboard')
     }
 
     return(

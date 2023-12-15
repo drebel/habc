@@ -1,21 +1,42 @@
 const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const connectDB = require('./config/database')
 const app = express()
+const mongoose = require('mongoose')
 const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
+const session = require('express-session')
+const MongoStore = require("connect-mongo")
+const connectDB = require('./config/database')
+const cors = require('cors')
 
-import Routes from './routes/routes.js'
+const Routes = require('./routes/routes.js')
 
 //access .env file in config folder
 require('dotenv').config({ path: "./config/.env" })
 
+//passport config
+require('./config/passport.js')(passport)
+
+const corsOptions = {
+    origin: process.env.ORIGIN,
+    credentials: true,
+}
+
+app.use(cors(corsOptions))
+
 // Body parsing
-app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
+// Setup sessions stored in mongodb
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false, 
+        store: MongoStore.create({ mongoUrl: process.env.DB_STRING }),
+    })
+)
 
+// passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
 
