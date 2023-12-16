@@ -22,9 +22,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
+// app.use(cors())
+
 // Body parsing
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+
 
 // Setup sessions stored in mongodb
 app.use(

@@ -5,10 +5,11 @@ export default function Logout(){
 
     async function handleClick(){
         try{
-            const response = await axios.get('https://localhost:5173/logout')
+            console.log('click logout')
+            const response = await axios.post('http://localhost:5000/logout')
             console.log(response)
         }catch(err){
-            console.error(err.response.data.message)
+            console.error(err)
         }
     }
 

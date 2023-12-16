@@ -11,7 +11,7 @@ router.post('/signup', authController.postSignup)
 // post route to auth to log in
 router.post('/login', authController.postLogin)
 // post route to auth to sign out
-// router.post('/logout', authController.postLogout)
+router.post('/logout', authController.postLogout)
 
 
 // formdata to submit a new form
